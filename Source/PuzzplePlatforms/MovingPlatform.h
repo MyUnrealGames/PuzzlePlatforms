@@ -18,15 +18,22 @@ public:
 	AMovingPlatform();
 	virtual void Tick(float DeltaTime) override;
 	virtual void BeginPlay() override;
-private:
-	UPROPERTY(EditAnywhere, Category="Setup")
-	float Speed = 20.f;
 
+	UPROPERTY(EditAnywhere, Category = "Setup")
+	float Speed = 20.f;
 	UPROPERTY(EditAnywhere, Category = "Setup", Meta = (MakeEditWidget = true))
 	FVector TargetLocation;
 
-	FVector GlobalTargetLocation;
+	void AddActiveTrigger();
+	void RemoveActiveTrigger();
 
+private:
+	
+
+	FVector GlobalTargetLocation;
 	FVector GlobalStartLocation;
+
+	UPROPERTY(EditAnywhere)
+	int ActiveTriggers = 1;
 
 };
