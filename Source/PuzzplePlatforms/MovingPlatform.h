@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class PUZZPLEPLATFORMS_API AMovingPlatform : public AStaticMeshActor
+class PUZZLEPLATFORMS_API AMovingPlatform : public AStaticMeshActor
 {
 	GENERATED_BODY()
 	
@@ -20,7 +20,7 @@ public:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, Category = "Setup")
-	float Speed = 20.f;
+	float Speed = 60.f;
 	UPROPERTY(EditAnywhere, Category = "Setup", Meta = (MakeEditWidget = true))
 	FVector TargetLocation;
 

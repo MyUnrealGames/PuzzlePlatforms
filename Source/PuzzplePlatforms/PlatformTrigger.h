@@ -8,7 +8,7 @@
 
 
 UCLASS()
-class PUZZPLEPLATFORMS_API APlatformTrigger : public AActor
+class PUZZLEPLATFORMS_API APlatformTrigger : public AActor
 {
 	GENERATED_BODY()
 	
