@@ -2,7 +2,9 @@
 
 #include "MainMenu.h"
 #include "Engine/World.h"
+
 #include "Components/Button.h"
+#include "Components/WidgetSwitcher.h"
 
 
 
@@ -11,8 +13,11 @@ bool UMainMenu::Initialize()
 	bool Success = Super::Initialize();
 	if (!Success) return false;
 
-	if (!ensure(Host != nullptr)) return false;
-	Host->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
+	if (!ensure(HostButton != nullptr)) return false;
+	HostButton->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
+
+	if (!ensure(JoinButton != nullptr)) return false;
+	JoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
 
 	this->AddToViewport();
 
@@ -48,6 +53,12 @@ void UMainMenu::HostServer()
 {
 	if (MenuInterface != nullptr)
 	{
-		MenuInterface->Host();
+		MenuInterface->HostButton();
 	}
+}
+
+void UMainMenu::OpenJoinMenu()
+{
+	if (!ensure(MenuSwitcher != nullptr)) return;
+	MenuSwitcher->SetActiveWidget(this->JoinMenu);
 }
