@@ -19,6 +19,11 @@ bool UMainMenu::Initialize()
 	if (!ensure(JoinButton != nullptr)) return false;
 	JoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
 
+	if (ensure(CancelJoinMenuButton != nullptr)) {
+		CancelJoinMenuButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
+	}
+	
+
 	this->AddToViewport();
 
 	APlayerController* Controller = GetWorld()->GetFirstPlayerController();
@@ -60,5 +65,12 @@ void UMainMenu::HostServer()
 void UMainMenu::OpenJoinMenu()
 {
 	if (!ensure(MenuSwitcher != nullptr)) return;
+	if (!ensure(JoinMenu != nullptr)) return;
 	MenuSwitcher->SetActiveWidget(this->JoinMenu);
+}
+
+void UMainMenu::OpenMainMenu()
+{
+	if (!ensure(MenuSwitcher != nullptr)) return;
+	MenuSwitcher->SetActiveWidget(this->MainMenu);
 }
