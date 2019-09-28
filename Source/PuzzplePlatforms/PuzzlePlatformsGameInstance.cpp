@@ -28,11 +28,14 @@ void UPuzzlePlatformsGameInstance::LoadMenu()
 	Menu->SetMenuInterface(this);
 }
 
-void UPuzzlePlatformsGameInstance::HostButton()
+void UPuzzlePlatformsGameInstance::Host()
 {
 
 	UEngine* Engine = GetEngine();
 	if (!ensure(Engine != nullptr)) return;
+
+	Engine->AddOnScreenDebugMessage(0, 2, FColor::Green, TEXT("Hosting"));
+	UE_LOG(LogTemp, Warning, TEXT("Hosting"));
 
 	UWorld* World = GetWorld();
 	if (!ensure(World != nullptr)) return;
@@ -40,10 +43,14 @@ void UPuzzlePlatformsGameInstance::HostButton()
 	World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen");
 }
 
-void UPuzzlePlatformsGameInstance::JoinButton(const FString &Address)
+void UPuzzlePlatformsGameInstance::Join(const FString &Address)
 {
 	UEngine* Engine = GetEngine();
 	if (!ensure(Engine != nullptr)) return;
+
+	Engine->AddOnScreenDebugMessage(0, 5, FColor::Green, FString::Printf(TEXT("Joining %s"), *Address));
+
+	UE_LOG(LogTemp, Warning, TEXT("Joining %s"), *Address);
 
 
 	APlayerController* Controller = GetFirstLocalPlayerController();

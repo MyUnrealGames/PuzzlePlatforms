@@ -22,9 +22,11 @@ protected:
 
 public:
 	void SetMenuInterface(IMenuInterface* MenuInterface);
+
 	
 private:
 	// MainMenu Properties and Functions
+
 	UPROPERTY(meta = (BindWidget))
 	class UWidget* MainMenu;
 
@@ -51,6 +53,15 @@ private:
 
 	UPROPERTY(meta = (BindWidget))
 	class UButton* CancelJoinMenuButton;
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* ConfirmJoinMenuButton;
+
+	UPROPERTY(meta = (BindWidget))
+	class UEditableTextBox* IPAddressField;
+
+	UFUNCTION()
+	void JoinServer();
 
 	UFUNCTION()
 	void OpenMainMenu();

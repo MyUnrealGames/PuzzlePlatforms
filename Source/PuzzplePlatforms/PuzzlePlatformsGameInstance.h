@@ -26,8 +26,8 @@ public:
 	void LoadMenu();
 
 	UFUNCTION(Exec)
-	virtual void HostButton() override;
+	virtual void Host() override;
 
 	UFUNCTION(Exec)
-	void JoinButton(const FString &Address);
+	void Join(const FString &Address);
 };
