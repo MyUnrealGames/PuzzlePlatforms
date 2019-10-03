@@ -28,34 +28,9 @@ bool UMainMenu::Initialize()
 	}
 
 
-	this->AddToViewport();
+	bool SetupResult = Setup();
 
-	APlayerController* Controller = GetWorld()->GetFirstPlayerController();
-	if (!ensure(Controller != nullptr)) return false;
-
-	FInputModeUIOnly InputMode;
-	InputMode.SetWidgetToFocus(this->TakeWidget());
-	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-
-	Controller->SetInputMode(InputMode);
-	Controller->bShowMouseCursor = true;
-
-	return true;
-}
-
-void UMainMenu::OnLevelRemovedFromWorld(ULevel * InLevel, UWorld * InWorld)
-{
-	Super::OnLevelRemovedFromWorld(InLevel, InWorld);
-
-	FInputModeGameOnly InputModeData;
-	APlayerController* Controller = GetWorld()->GetFirstPlayerController();
-	Controller->SetInputMode(InputModeData);
-	Controller->bShowMouseCursor = false;
-}
-
-void UMainMenu::SetMenuInterface(IMenuInterface* MenuInterface)
-{
-	this->MenuInterface = MenuInterface;
+	return SetupResult;
 }
 
 void UMainMenu::HostServer()
@@ -65,6 +40,7 @@ void UMainMenu::HostServer()
 		MenuInterface->Host();
 	}
 }
+
 
 void UMainMenu::OpenJoinMenu()
 {

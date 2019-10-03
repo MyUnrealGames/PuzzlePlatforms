@@ -15,7 +15,14 @@ class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance, p
 	GENERATED_BODY()
 
 private:
+
 	TSubclassOf<class UUserWidget> MenuClass;
+
+	TSubclassOf<class UUserWidget> InGameMenuClass;
+
+	class UMenuWidget* MainMenu;
+
+	class UMenuWidget* InGameMenu;
 
 public:
 	UPuzzlePlatformsGameInstance(const FObjectInitializer & ObjectInitializer);
@@ -24,6 +31,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void LoadMenu();
+
+	UFUNCTION(BlueprintCallable)
+	void InGameLoadMenu();
 
 	UFUNCTION(Exec)
 	virtual void Host() override;
