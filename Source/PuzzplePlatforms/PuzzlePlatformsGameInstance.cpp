@@ -9,6 +9,7 @@
 #include "MenuSystem/MainMenu.h" 
 #include "MenuSystem/InGameMenu.h"
 #include "MenuSystem/MenuWidget.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer & ObjectInitializer)
 {
@@ -72,4 +73,24 @@ void UPuzzlePlatformsGameInstance::Join(const FString &Address)
 
 	Controller->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
 	
+}
+
+
+void UPuzzlePlatformsGameInstance::Quit()
+{
+	UWorld* World = GetWorld();
+	if (!ensure(World != nullptr)) return;
+
+	APlayerController* PlayerController = World->GetFirstPlayerController();
+	if (!ensure(PlayerController != nullptr)) return;
+
+	PlayerController->ConsoleCommand("quit");
+}
+
+void UPuzzlePlatformsGameInstance::LoadMainMenu()
+{
+	APlayerController* Controller = GetFirstLocalPlayerController();
+	if (!ensure(Controller != nullptr)) return;
+
+	Controller->ClientTravel("/Game/MenuSystem/MainMenu", ETravelType::TRAVEL_Absolute);
 }

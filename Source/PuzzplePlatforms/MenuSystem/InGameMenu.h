@@ -10,6 +10,10 @@
 /**
  * 
  */
+
+// Forward Declarations 
+class UButton;
+
 UCLASS()
 class PUZZLEPLATFORMS_API UInGameMenu : public UMenuWidget
 {
@@ -18,5 +22,17 @@ class PUZZLEPLATFORMS_API UInGameMenu : public UMenuWidget
 	
 protected:
 	virtual bool Initialize() override;
-	
+
+private:
+	UPROPERTY(meta = (BindWidget))
+	UButton* CancelButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* QuitButton;
+
+	UFUNCTION()
+	void CancelPressed();
+
+	UFUNCTION()
+	void QuitPressed();
 };

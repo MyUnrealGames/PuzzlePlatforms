@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Engine/World.h"
 #include "MenuWidget.h"
+#include "Engine/World.h"
+
 
 bool UMenuWidget::Setup()
 {
@@ -19,12 +20,20 @@ bool UMenuWidget::Setup()
 	return true;
 }
 
-void UMenuWidget::TearDown()
+void UMenuWidget::Teardown()
 {
+	this->RemoveFromViewport();
+
+	UWorld* World = GetWorld();
+	if (!ensure(World != nullptr)) return;
+
+	APlayerController* PlayerController = World->GetFirstPlayerController();
+	if (!ensure(PlayerController != nullptr)) return;
+
 	FInputModeGameOnly InputModeData;
-	APlayerController* Controller = GetWorld()->GetFirstPlayerController();
-	Controller->SetInputMode(InputModeData);
-	Controller->bShowMouseCursor = false;
+	PlayerController->SetInputMode(InputModeData);
+
+	PlayerController->bShowMouseCursor = false;
 }
 
 
@@ -32,7 +41,7 @@ void UMenuWidget::OnLevelRemovedFromWorld(ULevel * InLevel, UWorld * InWorld)
 {
 	Super::OnLevelRemovedFromWorld(InLevel, InWorld);
 
-	this->TearDown();
+	this->Teardown();
 }
 
 void UMenuWidget::SetMenuInterface(IMenuInterface* MenuInterface)

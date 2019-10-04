@@ -19,6 +19,9 @@ bool UMainMenu::Initialize()
 	if (!ensure(JoinButton != nullptr)) return false;
 	JoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
 
+	if (!ensure(QuitButton != nullptr)) return false;
+	QuitButton->OnClicked.AddDynamic(this, &UMainMenu::QuitGame);
+
 	if (ensure(CancelJoinMenuButton != nullptr)) {
 		CancelJoinMenuButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
 	}
@@ -49,14 +52,18 @@ void UMainMenu::OpenJoinMenu()
 	MenuSwitcher->SetActiveWidget(this->JoinMenu);
 }
 
+void UMainMenu::QuitGame()
+{
+	if (!ensure(MenuInterface != nullptr)) return;
+	MenuInterface->Quit();
+}
+
 void UMainMenu::JoinServer()
 {
 	if (!ensure(IPAddressField != nullptr)) return;
 	FString IPAddressValue = IPAddressField->GetText().ToString();
-	if (ensure(MenuInterface != nullptr))
-	{
-		MenuInterface->Join(IPAddressValue);
-	}
+	if (!ensure(MenuInterface != nullptr)) return;
+	MenuInterface->Join(IPAddressValue);
 }
 
 void UMainMenu::OpenMainMenu()
